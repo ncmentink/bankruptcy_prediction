@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 # Load data
 data = pd.read_csv("data.csv")
 
@@ -11,6 +12,7 @@ print(data.describe(include="all"))
 
 
 # Missing values
+# No missing values
 count_NA = data.isna().sum()
 print(count_NA)
 
@@ -27,8 +29,15 @@ count_defaults = data["Bankrupt?"].value_counts().to_dict()
 print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
 
 
+#Data transformation
+# TO DO:
+# VARIABLE NAMES AANPASSEN
+# ZOEKEN NAAR TE HOGE CORRELATIES TUSSEN VARIABELEN: MULTICOLLINEARTIY
+# TESTEN VOOR CORRELATIE MET DE Y
 
 
+
+#Nog aanpassen
 """
 # One-hot encoding for categorical variables
 
@@ -52,6 +61,8 @@ data_corr = data.drop(columns=['term', "term_36", "term_60", 'sub_grade_A', 'sub
 print(data_corr.corr())
 
 """
+
+
 def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -66,6 +77,7 @@ def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
 
 # Get correlation plot
 plot_confusion_matrix(data.corr())
+
 
 """"
 # Write data to csv after transformations

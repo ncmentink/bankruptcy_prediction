@@ -6,20 +6,39 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the correct dataset for this logistic regression
-data = pd.read_csv("data_final.csv")
-#data = pd.read_csv("data_1.csv")
+data = pd.read_csv("data.csv")
 
 # Set independent variable
-y = data['loan_status']
+y = data["Bankrupt?"]
+
 
 # Set dependent variables
-# Important to leave out baseline dummies
-X = data[['term_36', 'dti', 'fico_range_low', 'age', 'sub_grade_B', 'sub_grade_C', 'sub_grade_D', 'sub_grade_E',
-          'sub_grade_F', 'sub_grade_G'
-          # 'loan_amnt', 'int_rate', 'open_acc', 'pub_rec', 'pay_status', 'installment',
-          # 'annual_inc', 'fico_range_high', 'revol_bal','revol_util',
-          # 'sub_grade_A', 'term_65' Leave out because of dummy trap
-          ]]
+# Important to leave out baseline dummies to prevent dummy trap
+X = data[[' Operating Expense Rate',
+ ' Research and development expense rate',
+ ' Interest-bearing debt interest rate',
+ ' Revenue Per Share (Yuan ¥)',
+ ' Total Asset Growth Rate',
+ ' Net Value Growth Rate',
+ ' Current Ratio',
+ ' Quick Ratio',
+ ' Total debt/Total net worth',
+ ' Accounts Receivable Turnover',
+ ' Average Collection Days',
+ ' Inventory Turnover Rate (times)',
+ ' Fixed Assets Turnover Frequency',
+ ' Revenue per person',
+ ' Allocation rate per person',
+ ' Quick Assets/Current Liability',
+ ' Cash/Current Liability',
+ ' Inventory/Current Liability',
+ ' Long-term Liability to Current Assets',
+ ' Current Asset Turnover Rate',
+ ' Quick Asset Turnover Rate',
+ ' Cash Turnover Rate',
+ ' Fixed Assets to Assets',
+ ' Total assets to GNP price']]
+
 
 # Randomly split into test (0.75%) and train sets (0.25%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)

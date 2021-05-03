@@ -6,7 +6,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the correct dataset for this logistic regression
-data = pd.read_csv("data.csv")
+data = pd.read_csv("data_woe.csv")
 
 # Set independent variable
 y = data["Bankrupt?"]

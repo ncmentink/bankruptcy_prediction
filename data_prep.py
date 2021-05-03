@@ -29,18 +29,19 @@ count_defaults = data["Bankrupt?"].value_counts().to_dict()
 print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
 
 
-#Data transformation
+# Data transformation
 # TO DO:
 # VARIABLE NAMES AANPASSEN
+# VARIABLE TYPE: IS ALLES CONTINUOUS? OOK CATEGORICAL?
 # ZOEKEN NAAR TE HOGE CORRELATIES TUSSEN VARIABELEN: MULTICOLLINEARTIY
 # TESTEN VOOR CORRELATIE MET DE Y
+# IS ER GENOEG VARIABILITY IN EEN VARIABLE?
+# (wanneer alles in 1 waarde valt is een variabele niet informatief!)
 
 
-
-#Nog aanpassen
-"""
 # One-hot encoding for categorical variables
-
+# Nog aanpassen
+"""
 cat_vars = ['sub_grade', 'term']
 for var in cat_vars:
     # cat_list = 'var'+'_'+var
@@ -52,14 +53,6 @@ cat_vars = ['sub_grade', 'term']
 data_vars = data.columns.values.tolist()
 to_keep = [i for i in data_vars if i not in cat_vars]
 data_final = data[to_keep]
-
-
-# Create correlation plot
-data_corr = data.drop(columns=['term', "term_36", "term_60", 'sub_grade_A', 'sub_grade_B', 'sub_grade_C', 'sub_grade_D', 'sub_grade_E',
-                               'sub_grade_F', 'sub_grade_G'
-                               ])
-print(data_corr.corr())
-
 """
 
 
@@ -76,7 +69,25 @@ def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
 
 
 # Get correlation plot
-plot_confusion_matrix(data.corr())
+# plot_confusion_matrix(data.corr())
+
+
+# Histograms
+# Plot them one by one to see details
+# for column in data:
+#    data[[column]].hist(bins=50)
+#    plt.show()
+
+# Plot per 6
+# for subset in range(0, 102, 6):
+#    data.iloc[:, subset:subset+9].hist(figsize=(40, 30), bins=50)
+#    plt.show()
+
+pd.crosstab(data["Bankrupt?"], data[" Net worth/Assets"], normalize=False).plot(kind='bar')
+plt.title('Default frequency for New worth/Assets')
+plt.xlabel('Sub_grade')
+plt.ylabel('Frequency')
+plt.show()
 
 
 """"

@@ -31,10 +31,6 @@ plt.show()
 
 # Print performance measures
 print(classification_report(y_test, y_pred))
-print("Accuracy: ", metrics.accuracy_score(y_test, y_pred))
-print("Precision:", metrics.precision_score(y_test, y_pred))
-print("Recall:", metrics.recall_score(y_test, y_pred))
-print("F1 score:", metrics.f1_score(y_test, y_pred))
 
 # Make ROC/AUC plot
 y_pred_proba = logistic_regression.predict_proba(X_test)[::, 1]
@@ -61,10 +57,6 @@ plt.show()
 
 # Print performance measures
 print(classification_report(y_test, y_smote_pred))
-print("Accuracy: ", metrics.accuracy_score(y_test, y_smote_pred))
-print("Precision:", metrics.precision_score(y_test, y_smote_pred))
-print("Recall:", metrics.recall_score(y_test, y_smote_pred))
-print("F1 score:", metrics.f1_score(y_test, y_smote_pred))
 
 # Make ROC/AUC plot
 y_pred_proba = lr_smote.predict_proba(X_test)[::, 1]
@@ -92,10 +84,6 @@ plt.show()
 
 # Print performance measures
 print(classification_report(y_test, y_smote_sc_pred))
-print("Accuracy: ", metrics.accuracy_score(y_test, y_smote_sc_pred))
-print("Precision:", metrics.precision_score(y_test, y_smote_sc_pred))
-print("Recall:", metrics.recall_score(y_test, y_smote_sc_pred))
-print("F1 score:", metrics.f1_score(y_test, y_smote_sc_pred))
 
 # Make ROC/AUC plot
 y_pred_proba = lr_smote_sc.predict_proba(X_test)[::, 1]
@@ -123,10 +111,6 @@ plt.show()
 
 # Print performance measures
 print(classification_report(y_test, y_woe_pred))
-print("Accuracy: ", metrics.accuracy_score(y_test, y_woe_pred))
-print("Precision:", metrics.precision_score(y_test, y_woe_pred))
-print("Recall:", metrics.recall_score(y_test, y_woe_pred))
-print("F1 score:", metrics.f1_score(y_test, y_woe_pred))
 
 # Make ROC/AUC plot
 y_pred_proba = lr_woe.predict_proba(X_test)[::, 1]

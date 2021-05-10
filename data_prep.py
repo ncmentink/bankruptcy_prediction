@@ -37,12 +37,10 @@ X = data.drop('Bankrupt?', axis=1)
 y = data['Bankrupt?']
 X_smote, y_smote = SMOTE().fit_resample(X, y)
 
-# print(y.value_counts())
-# print(y_smote.value_counts())
-
 
 # 2) Create scaled data
 # Makes a HUGE difference in performance
+data = y_smote.to_frame().join(X_smote)
 count = 0
 not_scaled = []
 for col in data.columns:

@@ -15,7 +15,7 @@ y_woe = data_woe['Bankrupt?']
 
 
 # 1) LOGISTIC REGRESSION WITHOUT RESAMPLING, WITHOUT SCALING
-# Randomly split into test (0.75%) and train sets (0.25%)
+# Randomly split into train (0.75%) and test sets (0.25%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
 
 # Perform logistic regression
@@ -47,7 +47,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_smote, y_smote, test_size=
 
 # Perform logistic regression
 # Set max_iter higher to ensure convergence
-lr_smote = LogisticRegression(max_iter = 1500)
+lr_smote = LogisticRegression(max_iter=1500)
 lr_smote.fit(X_train, y_train)
 y_smote_pred = lr_smote.predict(X_test)
 
@@ -103,7 +103,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_woe, y_woe, test_size=0.25
 
 # Perform logistic regression
 # Set max_iter higher to ensure convergence
-lr_woe = LogisticRegression(max_iter = 1500)
+lr_woe = LogisticRegression(max_iter=1500)
 lr_woe.fit(X_train, y_train)
 y_woe_pred = lr_woe.predict(X_test)
 

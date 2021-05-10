@@ -111,7 +111,7 @@ def char_bin(Y, X):
     d3.IV = d3.IV.sum()
     d3 = d3.reset_index(drop=True)
 
-    return (d3)
+    return d3
 
 
 def data_vars(df1, target):
@@ -141,7 +141,7 @@ def data_vars(df1, target):
 
     iv = pd.DataFrame({'IV': iv_df.groupby('VAR_NAME').IV.max()})
     iv = iv.reset_index()
-    return (iv_df, iv)
+    return iv_df, iv
 
 
 # Set dimensions of outcomes
@@ -151,15 +151,15 @@ pd.set_option('display.max_rows', 100)
 # Print outcome: IV and WOE
 # Sort on IV score
 final_iv, IV = data_vars(data, data['Bankrupt?'])
-#print(final_iv)
-#print(IV.sort_values('IV'))
+# print(final_iv)
+# print(IV.sort_values('IV'))
 
 bankrupt = data['Bankrupt?']
 
 # Add variables with WOE values
 transform_vars_list = data.columns.difference([''])
 transform_prefix = ''
-#print(transform_vars_list)
+# print(transform_vars_list)
 
 for var in transform_vars_list:
     small_df = final_iv[final_iv['VAR_NAME'] == var]
@@ -181,5 +181,3 @@ data["Bankrupt?"] = bankrupt
 
 # Write data with WOE-binned variables to csv
 data.to_csv('data_woe.csv', index=False)
-
-

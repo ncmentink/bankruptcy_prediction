@@ -15,7 +15,7 @@ print(data.describe(include="all"))
 # Missing values
 # No missing values
 count_NA = data.isna().sum()
-print(count_NA)
+# print(count_NA)
 
 
 # Count frequencies (to detect anomalies)
@@ -30,7 +30,7 @@ print(count_NA)
 
 # 1) Calculate percentage of bankruptcies: only 3%!
 count_defaults = data["Bankrupt?"].value_counts().to_dict()
-print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
+# print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
 
 # Therefore resample by means of SMOTE
 X = data.drop('Bankrupt?', axis=1)
@@ -45,7 +45,7 @@ count = 0
 not_scaled = []
 for col in data.columns:
     if max(data[col]) > 1:
-        print("Unscaled : ", col)
+        # print("Unscaled : ", col)
         count += 1
         not_scaled.append(col)
 

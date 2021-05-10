@@ -1,10 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
+from imblearn.over_sampling import SMOTE
 
 
 # Load data
 data = pd.read_csv("data.csv")
-
 
 # Data exploration: descriptive statistics
 pd.set_option('display.expand_frame_repr', False)
@@ -23,37 +24,45 @@ print(count_NA)
 #    print(counts)
 
 
-# Calculate percentage of defaults in dataset
-# Only 3% has gone bankrupt
+# Data transformation
+# 1) Resample by means of SMOTE
+# 2) Scale the data
+
+# 1) Calculate percentage of bankruptcies: only 3%!
 count_defaults = data["Bankrupt?"].value_counts().to_dict()
 print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
 
+# Therefore resample by means of SMOTE
+X = data.drop('Bankrupt?', axis=1)
+y = data['Bankrupt?']
+X_smote, y_smote = SMOTE().fit_resample(X, y)
 
-# Data transformation
-# TO DO:
-# VARIABLE NAMES AANPASSEN
-# VARIABLE TYPE: IS ALLES CONTINUOUS? OOK CATEGORICAL?
-# ZOEKEN NAAR TE HOGE CORRELATIES TUSSEN VARIABELEN: MULTICOLLINEARTIY
-# TESTEN VOOR CORRELATIE MET DE Y
-# IS ER GENOEG VARIABILITY IN EEN VARIABLE?
-# (wanneer alles in 1 waarde valt is een variabele niet informatief!)
+# print(y.value_counts())
+# print(y_smote.value_counts())
 
 
-# One-hot encoding for categorical variables
-# Nog aanpassen
-"""
-cat_vars = ['sub_grade', 'term']
-for var in cat_vars:
-    # cat_list = 'var'+'_'+var
-    cat_list = pd.get_dummies(data[var], prefix=var)
-    data_join = data.join(cat_list)
-    data = data_join
+# 2) Create scaled data
+# Makes a HUGE difference in performance
+count = 0
+not_scaled = []
+for col in data.columns:
+    if max(data[col]) > 1:
+        print("Unscaled : ", col)
+        count += 1
+        not_scaled.append(col)
 
-cat_vars = ['sub_grade', 'term']
-data_vars = data.columns.values.tolist()
-to_keep = [i for i in data_vars if i not in cat_vars]
-data_final = data[to_keep]
-"""
+scaling_function = MinMaxScaler()
+data[not_scaled] = scaling_function.fit_transform(data[not_scaled])
+
+X_smote_sc = data.drop('Bankrupt?', axis=1)
+y_smote_sc = data['Bankrupt?']
+
+
+# VARIABLE SELECTION
+# 1) Exclude variables with multicollinearity
+# 2) Check if correlated with Y
+# 3) Check if enough variability
+# 4) (In case of WOE/IV) IV criteria
 
 
 def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
@@ -68,7 +77,7 @@ def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
     plt.show()
 
 
-# Get correlation plot
+# 1) Get correlation plot
 # plot_confusion_matrix(data.corr())
 
 
@@ -83,14 +92,10 @@ def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
 #    data.iloc[:, subset:subset+9].hist(figsize=(40, 30), bins=50)
 #    plt.show()
 
-pd.crosstab(data["Bankrupt?"], data[" Net worth/Assets"], normalize=False).plot(kind='bar')
+"""
+pd.crosstab(data["Bankrupt?"], data[" ROA(C) before interest and depreciation before interest"], normalize="index").plot(kind='bar')
 plt.title('Default frequency for New worth/Assets')
 plt.xlabel('Sub_grade')
 plt.ylabel('Frequency')
 plt.show()
-
-
-""""
-# Write data to csv after transformations
-data_final.to_csv('data_final.csv', index=False)
 """

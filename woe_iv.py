@@ -6,8 +6,11 @@ import scipy.stats.stats as stats
 import re
 import traceback
 
+# Resampled but unscaled data
+from data_prep import X_smote, y_smote
 
-data = pd.read_csv("data.csv")
+
+data = y_smote.to_frame().join(X_smote)
 
 # Used binning functions from github
 # https://github.com/Sundar0989/WOE-and-IV/blob/master/WOE_IV.ipynb
@@ -148,15 +151,15 @@ pd.set_option('display.max_rows', 100)
 # Print outcome: IV and WOE
 # Sort on IV score
 final_iv, IV = data_vars(data, data['Bankrupt?'])
-print(final_iv)
-print(IV.sort_values('IV'))
+#print(final_iv)
+#print(IV.sort_values('IV'))
 
 bankrupt = data['Bankrupt?']
 
 # Add variables with WOE values
 transform_vars_list = data.columns.difference([''])
 transform_prefix = ''
-print(transform_vars_list)
+#print(transform_vars_list)
 
 for var in transform_vars_list:
     small_df = final_iv[final_iv['VAR_NAME'] == var]
@@ -178,3 +181,5 @@ data["Bankrupt?"] = bankrupt
 
 # Write data with WOE-binned variables to csv
 data.to_csv('data_woe.csv', index=False)
+
+

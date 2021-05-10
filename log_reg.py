@@ -4,42 +4,17 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import metrics
 import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report
 
-# Load the correct dataset for this logistic regression
-data = pd.read_csv("data_woe.csv")
+# Load the variables for logistic regression
+from data_prep import X, y, X_smote, y_smote, X_smote_sc, y_smote_sc
 
-# Set independent variable
-y = data["Bankrupt?"]
-
-
-# Set dependent variables
-# Important to leave out baseline dummies to prevent dummy trap
-X = data[[' Operating Expense Rate',
- ' Research and development expense rate',
- ' Interest-bearing debt interest rate',
- ' Revenue Per Share (Yuan ¥)',
- ' Total Asset Growth Rate',
- ' Net Value Growth Rate',
- ' Current Ratio',
- ' Quick Ratio',
- ' Total debt/Total net worth',
- ' Accounts Receivable Turnover',
- ' Average Collection Days',
- ' Inventory Turnover Rate (times)',
- ' Fixed Assets Turnover Frequency',
- ' Revenue per person',
- ' Allocation rate per person',
- ' Quick Assets/Current Liability',
- ' Cash/Current Liability',
- ' Inventory/Current Liability',
- ' Long-term Liability to Current Assets',
- ' Current Asset Turnover Rate',
- ' Quick Asset Turnover Rate',
- ' Cash Turnover Rate',
- ' Fixed Assets to Assets',
- ' Total assets to GNP price']]
+data_woe = pd.read_csv("data_woe.csv")
+X_woe = data_woe.drop('Bankrupt?', axis=1)
+y_woe = data_woe['Bankrupt?']
 
 
+# 1) LOGISTIC REGRESSION WITHOUT RESAMPLING, WITHOUT SCALING
 # Randomly split into test (0.75%) and train sets (0.25%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
 
@@ -50,11 +25,12 @@ logistic_regression.fit(X_train, y_train)
 y_pred = logistic_regression.predict(X_test)
 
 # Show heatmap of confusion matrix
-confusion_matrix = pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted'])
-sns.heatmap(confusion_matrix, annot=True)
+confusionmatrix = pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted'])
+sns.heatmap(confusionmatrix, annot=True)
 plt.show()
 
 # Print performance measures
+print(classification_report(y_test, y_pred))
 print("Accuracy: ", metrics.accuracy_score(y_test, y_pred))
 print("Precision:", metrics.precision_score(y_test, y_pred))
 print("Recall:", metrics.recall_score(y_test, y_pred))
@@ -62,6 +38,98 @@ print("F1 score:", metrics.f1_score(y_test, y_pred))
 
 # Make ROC/AUC plot
 y_pred_proba = logistic_regression.predict_proba(X_test)[::, 1]
+fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred_proba)
+auc = metrics.roc_auc_score(y_test, y_pred_proba)
+plt.plot(fpr, tpr, label="data 1, auc="+str(auc))
+plt.legend(loc=4)
+plt.show()
+
+# 2) LOGISTIC REGRESSION WITH RESAMPLING, WITHOUT SCALING
+# Randomly split into test (0.75%) and train sets (0.25%)
+X_train, X_test, y_train, y_test = train_test_split(X_smote, y_smote, test_size=0.25, random_state=0)
+
+# Perform logistic regression
+# Set max_iter higher to ensure convergence
+lr_smote = LogisticRegression(max_iter = 1500)
+lr_smote.fit(X_train, y_train)
+y_smote_pred = lr_smote.predict(X_test)
+
+# Show heatmap of confusion matrix
+confusionmatrix = pd.crosstab(y_test, y_smote_pred, rownames=['Actual'], colnames=['Predicted'])
+sns.heatmap(confusionmatrix, annot=True)
+plt.show()
+
+# Print performance measures
+print(classification_report(y_test, y_smote_pred))
+print("Accuracy: ", metrics.accuracy_score(y_test, y_smote_pred))
+print("Precision:", metrics.precision_score(y_test, y_smote_pred))
+print("Recall:", metrics.recall_score(y_test, y_smote_pred))
+print("F1 score:", metrics.f1_score(y_test, y_smote_pred))
+
+# Make ROC/AUC plot
+y_pred_proba = lr_smote.predict_proba(X_test)[::, 1]
+fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred_proba)
+auc = metrics.roc_auc_score(y_test, y_pred_proba)
+plt.plot(fpr, tpr, label="data 1, auc="+str(auc))
+plt.legend(loc=4)
+plt.show()
+
+
+# 3) LOGISTIC REGRESSION WITH RESAMPLING, WITH SCALING
+# Randomly split into test (0.75%) and train sets (0.25%)
+X_train, X_test, y_train, y_test = train_test_split(X_smote_sc, y_smote_sc, test_size=0.25, random_state=0)
+
+# Perform logistic regression
+# Set max_iter higher to ensure convergence
+lr_smote_sc = LogisticRegression(max_iter=1500)
+lr_smote_sc.fit(X_train, y_train)
+y_smote_sc_pred = lr_smote_sc.predict(X_test)
+
+# Show heatmap of confusion matrix
+confusionmatrix = pd.crosstab(y_test, y_smote_sc_pred, rownames=['Actual'], colnames=['Predicted'])
+sns.heatmap(confusionmatrix, annot=True)
+plt.show()
+
+# Print performance measures
+print(classification_report(y_test, y_smote_sc_pred))
+print("Accuracy: ", metrics.accuracy_score(y_test, y_smote_sc_pred))
+print("Precision:", metrics.precision_score(y_test, y_smote_sc_pred))
+print("Recall:", metrics.recall_score(y_test, y_smote_sc_pred))
+print("F1 score:", metrics.f1_score(y_test, y_smote_sc_pred))
+
+# Make ROC/AUC plot
+y_pred_proba = lr_smote_sc.predict_proba(X_test)[::, 1]
+fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred_proba)
+auc = metrics.roc_auc_score(y_test, y_pred_proba)
+plt.plot(fpr, tpr, label="data 1, auc="+str(auc))
+plt.legend(loc=4)
+plt.show()
+
+
+# 4) LOGISTIC REGRESSION WITH WOE (UNSCALED, WITH RESAMPLING)
+# Randomly split into test (0.75%) and train sets (0.25%)
+X_train, X_test, y_train, y_test = train_test_split(X_woe, y_woe, test_size=0.25, random_state=0)
+
+# Perform logistic regression
+# Set max_iter higher to ensure convergence
+lr_woe = LogisticRegression(max_iter = 1500)
+lr_woe.fit(X_train, y_train)
+y_woe_pred = lr_woe.predict(X_test)
+
+# Show heatmap of confusion matrix
+confusionmatrix = pd.crosstab(y_test, y_woe_pred, rownames=['Actual'], colnames=['Predicted'])
+sns.heatmap(confusionmatrix, annot=True)
+plt.show()
+
+# Print performance measures
+print(classification_report(y_test, y_woe_pred))
+print("Accuracy: ", metrics.accuracy_score(y_test, y_woe_pred))
+print("Precision:", metrics.precision_score(y_test, y_woe_pred))
+print("Recall:", metrics.recall_score(y_test, y_woe_pred))
+print("F1 score:", metrics.f1_score(y_test, y_woe_pred))
+
+# Make ROC/AUC plot
+y_pred_proba = lr_woe.predict_proba(X_test)[::, 1]
 fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred_proba)
 auc = metrics.roc_auc_score(y_test, y_pred_proba)
 plt.plot(fpr, tpr, label="data 1, auc="+str(auc))

@@ -25,7 +25,7 @@ count_NA = data.isna().sum()
 
 
 # Data transformation
-# 1) Resample by means of SMOTE
+# 1) Resample by means of SMOTE: oversample y=1 up to a 50/50 ratio
 # 2) Scale the data
 
 # 1) Calculate percentage of bankruptcies: only 3%!

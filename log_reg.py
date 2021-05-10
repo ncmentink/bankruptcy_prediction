@@ -20,9 +20,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 
 # Perform logistic regression
 # Set max_iter higher to ensure convergence
-logistic_regression = LogisticRegression(max_iter=1500)
-logistic_regression.fit(X_train, y_train)
-y_pred = logistic_regression.predict(X_test)
+lr = LogisticRegression(max_iter=1500)
+lr.fit(X_train, y_train)
+y_pred = lr.predict(X_test)
 
 # Show heatmap of confusion matrix
 confusionmatrix = pd.crosstab(y_test, y_pred, rownames=['Actual'], colnames=['Predicted'])
@@ -33,7 +33,7 @@ plt.show()
 print(classification_report(y_test, y_pred))
 
 # Make ROC/AUC plot
-y_pred_proba = logistic_regression.predict_proba(X_test)[::, 1]
+y_pred_proba = lr.predict_proba(X_test)[::, 1]
 fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred_proba)
 auc = metrics.roc_auc_score(y_test, y_pred_proba)
 plt.plot(fpr, tpr, label="data 1, auc="+str(auc))

@@ -30,6 +30,7 @@ sns.heatmap(confusionmatrix, annot=True)
 plt.show()
 
 # Print performance measures
+print("lr without resampling, without replacements")
 print(classification_report(y_test, y_pred))
 
 # Make ROC/AUC plot
@@ -56,6 +57,7 @@ sns.heatmap(confusionmatrix, annot=True)
 plt.show()
 
 # Print performance measures
+print("lr with resampling, without replacements")
 print(classification_report(y_test, y_smote_pred))
 
 # Make ROC/AUC plot
@@ -83,6 +85,7 @@ sns.heatmap(confusionmatrix, annot=True)
 plt.show()
 
 # Print performance measures
+print("lr with resampling, with replacements")
 print(classification_report(y_test, y_smote_sc_pred))
 
 # Make ROC/AUC plot
@@ -110,6 +113,7 @@ sns.heatmap(confusionmatrix, annot=True)
 plt.show()
 
 # Print performance measures
+print("lr with WOE (unscaled, with resampling)")
 print(classification_report(y_test, y_woe_pred))
 
 # Make ROC/AUC plot

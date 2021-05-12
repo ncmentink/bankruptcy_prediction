@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
+import seaborn as sns
 
 
 # Load data
@@ -17,11 +18,8 @@ print(data.describe(include="all"))
 count_NA = data.isna().sum()
 # print(count_NA)
 
-
-# Count frequencies (to detect anomalies)
-# for column in data:
-#    counts = data[column].value_counts().to_dict()
-#    print(counts)
+# Check for duplicates; there are none
+data.duplicated().sum()
 
 
 # Data transformation
@@ -29,8 +27,11 @@ count_NA = data.isna().sum()
 # 2) Scale the data
 
 # 1) Calculate percentage of bankruptcies: only 3%!
+# So we have very imbalanced class labels
 count_defaults = data["Bankrupt?"].value_counts().to_dict()
 # print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
+# sns.countplot(x=data['Bankrupt?'])
+# plt.show()
 
 # Therefore resample by means of SMOTE
 X = data.drop('Bankrupt?', axis=1)
@@ -54,46 +55,3 @@ data[not_scaled] = scaling_function.fit_transform(data[not_scaled])
 
 X_smote_sc = data.drop('Bankrupt?', axis=1)
 y_smote_sc = data['Bankrupt?']
-
-
-# VARIABLE SELECTION
-# 1) Exclude variables with multicollinearity
-# 2) Check if correlated with Y
-# 3) Check if enough variability
-# 4) (In case of WOE/IV) IV criteria
-
-
-def plot_confusion_matrix(cm, title='Confusion matrix', labels=None):
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    cax = ax.matshow(cm)
-    plt.title(title)
-    fig.colorbar(cax)
-    if labels:
-        ax.set_xticklabels([''] + labels)
-        ax.set_yticklabels([''] + labels)
-    plt.show()
-
-
-# 1) Get correlation plot
-# plot_confusion_matrix(data.corr())
-
-
-# Histograms
-# Plot them one by one to see details
-# for column in data:
-#    data[[column]].hist(bins=50)
-#    plt.show()
-
-# Plot per 6
-# for subset in range(0, 102, 6):
-#    data.iloc[:, subset:subset+9].hist(figsize=(40, 30), bins=50)
-#    plt.show()
-
-"""
-pd.crosstab(data["Bankrupt?"], data[" ROA(C) before interest and depreciation before interest"], normalize="index").plot(kind='bar')
-plt.title('Default frequency for New worth/Assets')
-plt.xlabel('Sub_grade')
-plt.ylabel('Frequency')
-plt.show()
-"""

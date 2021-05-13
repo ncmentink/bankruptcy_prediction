@@ -151,15 +151,15 @@ pd.set_option('display.max_rows', 100)
 # Print outcome: IV and WOE
 # Sort on IV score
 final_iv, IV = data_vars(data, data['Bankrupt?'])
-# print(final_iv)
-# print(IV.sort_values('IV'))
+print(final_iv)
+print(IV.sort_values('IV'))
 
 bankrupt = data['Bankrupt?']
 
 # Add variables with WOE values
 transform_vars_list = data.columns.difference([''])
 transform_prefix = ''
-# print(transform_vars_list)
+print(transform_vars_list)
 
 for var in transform_vars_list:
     small_df = final_iv[final_iv['VAR_NAME'] == var]

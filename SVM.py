@@ -14,42 +14,47 @@ from sklearn.model_selection import train_test_split, StratifiedKFold, RepeatedS
 
 
 # Load the correct dataset for this logistic regression
-data = pd.read_csv("data_woe.csv")
+data = pd.read_csv("data.csv")
+
+print(data)
+exit()
 
 # Set independent variable
 y = data["Bankrupt?"]
 
 X = data.drop(['Bankrupt?'],axis=1)
 
+
 X_smote, y_smote = SMOTE().fit_resample(X, y)
+
 
 # Randomly split into test (0.75%) and train sets (0.25%)
 X_train, X_test, y_train, y_test = train_test_split(X_smote, y_smote, test_size=0.25, random_state=0)
 
-# Set RandomForestClassifier as estimator for RFECV
-cart = RandomForestClassifier(random_state=42)
-# Minimum number of features to consider
-min_features_to_select = 1
-# Set number of folds
-cv = RepeatedStratifiedKFold(n_splits=5, n_repeats=1, random_state=1)
-# Set cross-validation process
-rfecv = RFECV(estimator=cart, step=1, cv=cv,
-              scoring='accuracy',
-              min_features_to_select=min_features_to_select, n_jobs=1)
-# Fit the model
-rfecv.fit(X_train, y_train)
 
-print("Optimal number of features : %d" % rfecv.n_features_)
-
-# Plot number of features VS. cross-validation scores
-plt.figure()
-plt.xlabel("Number of features selected")
-plt.ylabel("Cross validation score (nb of correct classifications)")
-plt.plot(range(min_features_to_select,
-               len(rfecv.grid_scores_) + min_features_to_select),
-         rfecv.grid_scores_)
-plt.show()
-
+# # Set RandomForestClassifier as estimator for RFECV
+# cart = RandomForestClassifier(random_state=42)
+# # Minimum number of features to consider
+# min_features_to_select = 1
+# # Set number of folds
+# cv = RepeatedStratifiedKFold(n_splits=5, n_repeats=1, random_state=1)
+# # Set cross-validation process
+# rfecv = RFECV(estimator=cart, step=1, cv=cv,
+#               scoring='accuracy',
+#               min_features_to_select=min_features_to_select, n_jobs=1)
+# # Fit the model
+# rfecv.fit(X_train, y_train)
+#
+# print("Optimal number of features : %d" % rfecv.n_features_)
+#
+# # Plot number of features VS. cross-validation scores
+# plt.figure()
+# plt.xlabel("Number of features selected")
+# plt.ylabel("Cross validation score (nb of correct classifications)")
+# plt.plot(range(min_features_to_select,
+#                len(rfecv.grid_scores_) + min_features_to_select),
+#          rfecv.grid_scores_)
+# plt.show()
 
 
 # var_thres = VarianceThreshold(2.0)
@@ -90,7 +95,6 @@ plt.show()
 #  ' Cash Turnover Rate',
 #  ' Fixed Assets to Assets',
 #  ' Total assets to GNP price']]
-
 
 
 

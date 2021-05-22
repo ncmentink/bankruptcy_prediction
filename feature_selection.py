@@ -13,7 +13,7 @@ from data_prep import y_smote_sc, X_smote_sc
 # FEATURE SELECTION
 # 1) Exclude variables with multicollinearity
 #       1.1: Look at correlation
-#       1.2: VIF value
+#       1.2: VIF value: met een cutoff van 2.5?
 # 2) Check if correlated with Y / Check which features contribute most to prediction (accuracy)
 #       2.1: Recursive Feature Elimination Cross Validation
 #       2.2: Coefficients in Log Reg

@@ -7,9 +7,9 @@ from data_prep import X, y, X_smote, y_smote, X_smote_sc, y_smote_sc
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
 
-# First we scale the data, as this is necessary for Ridge and Lasso
+# We standardize the data, as this is necessary for Ridge and Lasso
 # For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
-# therefore we need to scale the data so the coefficients are all based on the same scale.
+# therefore we need to standardize the data so the coefficients are all based on the same scale.
 sc = StandardScaler()
 
 # Fit the scaler to the training data and transform
@@ -47,6 +47,9 @@ for c in C:
 
 
 """
+Old code with simple cross validation instead of StratifiedKFold pipeline
+
+
 X_train, X_test, y_train, y_test = train_test_split(X_smote_sc, y_smote_sc, test_size=0.25, random_state=0)
 
 # Logistic Lasso 

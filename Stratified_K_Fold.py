@@ -46,9 +46,10 @@ for c in C:
     # the training data, transforms the train data, models are fitted on the train data, and the scaler is used to
     # transform the test data. Therefore, the test data is not used to determine the scaling parameters.
     #
-    # After under and over sampling we scale the data, as this is necessary for Ridge and Lasso
+    # After under and over sampling we standardize the data, as this is necessary for Ridge and Lasso. If we standardize
+    # instead of normalize, we still keep the interpretability of our coefficients.
     # For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
-    # therefore we need to scale the data so the coefficients are all based on the same scale.
+    # therefore we need to standardize the data so the coefficients are all based on the same scale.
     #
     # The folds of the cross-validation are stratified, which means they will have the same class distribution as the
     # original dataset, in this case a 1:32 ratio (3% 1-class, 97 0-class) and later 1:2 (33% 1-class, 66% 0-class).

@@ -11,14 +11,12 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.feature_selection import RFECV, SelectKBest, f_classif, VarianceThreshold
 from sklearn.model_selection import train_test_split, StratifiedKFold, RepeatedStratifiedKFold, cross_val_score, GridSearchCV, RandomizedSearchCV, KFold
 
-from data_prep import y_smote_sc, X_smote_sc, y_smote, X_smote
+from data_prep import X, y, y_smote_sc, X_smote_sc, y_smote, X_smote
 
-# Pick data to use
-X = X_smote_sc
-y = y_smote_sc
 
 # Create the correct dataset for this logistic regression
 data = y.to_frame().join(X)
+
 
 # Randomly split into train (0.75%) and test sets (0.25%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
@@ -28,7 +26,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 # estimator =RandomForestClassifier(random_state=42)
 # cv = RepeatedStratifiedKFold(n_splits=5, n_repeats=1, random_state=1)
 
-lr = LogisticRegression(max_iter=1500)
+lr = LogisticRegression(max_iter=10000, solver="saga")
 lr.fit(X_train, y_train)
 rfecv = RFECV(estimator=lr, step=1, cv=StratifiedKFold(2), scoring='accuracy', min_features_to_select=1, n_jobs=1)
 rfecv.fit(X_train, y_train)
@@ -61,7 +59,6 @@ for i,v in enumerate(importance):
 # plot feature importance
 plt.bar([x for x in range(len(importance))], importance)
 plt.show()
-
 
 
 

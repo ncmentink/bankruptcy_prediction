@@ -1,145 +1,108 @@
-from numpy import mean
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import RepeatedStratifiedKFold, cross_val_score, cross_validate
-from sklearn.metrics import classification_report, accuracy_score, make_scorer
+from sklearn.model_selection import cross_val_score, StratifiedKFold
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report, make_scorer, accuracy_score, \
+    f1_score, recall_score, roc_curve, roc_auc_score
 from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
-from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
 
-# Load the variables for logistic regression
-from data_prep import X, y, X_smote, y_smote, X_smote_sc, y_smote_sc
+# Load data
+data = pd.read_csv("data.csv")
 
-"""
-#lasso smote sc
-skfold = StratifiedKFold(n_splits=4)
-model_skfold = LogisticRegression(max_iter=8000)
-results_skfold = cross_val_score(model_skfold, X_smote_sc, y_smote_sc, cv=skfold)
-print("Accuracy: %.2f%%" % (results_skfold.mean()*100.0))
+X = data.drop('Bankrupt?', axis=1)
+y = data['Bankrupt?']
 
 
-#lasso unchanged data
-skfold = StratifiedKFold(n_splits=4)
-model_skfold = LogisticRegression(penalty='l1', solver='lbfgs', max_iter=8000, C=1000)
-results_skfold = cross_val_score(model_skfold, X, y, cv=skfold)
-print("Accuracy: %.2f%%" % (results_skfold.mean()*100.0))
-"""
+def classification_report_with_f1(y_true, y_pred):
+    true_labels.extend(y_true)
+    predicted_labels.extend(y_pred)
 
-# First we scale the data, as this is necessary for Ridge and Lasso
-# For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
-# therefore we need to scale the data so the coefficients are all based on the same scale.
-X = StandardScaler().fit_transform(X)
-
-# Pick model
-# Lasso
-# model = LogisticRegression(penalty="l1", solver='saga', max_iter=8000)
-
-# Ridge
-model = LogisticRegression(penalty="l2", solver='lbfgs', max_iter=8000)
+    return f1_score(y_true, y_pred)
 
 
-# Pick performance measure
-measure1 = "precision"
-measure2 = "accuracy"
-measure3 = "recall"
-measure4 = "roc_auc"
+def classification_report_with_recall(y_true, y_pred):
+    true_labels.extend(y_true)
+    predicted_labels.extend(y_pred)
+
+    return recall_score(y_true, y_pred)
 
 
-# 1: decision tree evaluated on imbalanced dataset
-# evaluate pipeline
-cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores1 = cross_val_score(model, X, y, scoring=measure1, cv=cv, n_jobs=-1)
-scores2 = cross_val_score(model, X, y, scoring=measure2, cv=cv, n_jobs=-1)
-scores3 = cross_val_score(model, X, y, scoring=measure3, cv=cv, n_jobs=-1)
-scores4 = cross_val_score(model, X, y, scoring=measure4, cv=cv, n_jobs=-1)
-print(measure1, '%.3f' % mean(scores1),'\n',measure2, '%.3f' % mean(scores2),'\n',
-      measure3, '%.3f' % mean(scores3),'\n',measure4, '%.3f' % mean(scores4))
+def classification_report_with_accuracy(y_true, y_pred):
+    true_labels.extend(y_true)
+    predicted_labels.extend(y_pred)
 
-exit()
+    return accuracy_score(y_true, y_pred)
 
 
-def classification_report_with_accuracy_score(y_true, y_pred):
+def classification_report_with_roc_auc(y_true, y_pred):
+    true_labels.extend(y_true)
+    predicted_labels.extend(y_pred)
 
-    print(classification_report(y_true, y_pred)) # print classification report
-    return accuracy_score(y_true, y_pred) # return accuracy score
-
-cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-
-# Nested CV with parameter optimization
-scores = cross_val_score(model, X, y,scoring=make_scorer(classification_report_with_accuracy_score), cv=cv, n_jobs=-1)
-
-print(scores)
-
-# 1: decision tree evaluated on imbalanced dataset
-# evaluate pipeline
-from sklearn.metrics import classification_report, accuracy_score, make_scorer
-
-# Variables for average classification report
-originalclass = []
-predictedclass = []
-
-#Make our customer score
-def classification_report_with_accuracy_score(y_true, y_pred):
-    originalclass.extend(y_true)
-    predictedclass.extend(y_pred)
-    return accuracy_score(y_true, y_pred) # return accuracy score
-
-cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-
-# Nested CV with parameter optimization
-scores = cross_val_score(model, X, y,scoring=make_scorer(classification_report_with_accuracy_score), cv=cv, n_jobs=-1)
-
-# Average values in classification report for all folds in a K-fold Cross-validation
-print(classification_report(originalclass, predictedclass))
-
-exit()
-cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(model, X, y,scoring=make_scorer(classification_report_with_accuracy_score), cv=cv, n_jobs=-1)
+    return roc_auc_score(y_true, y_pred)
 
 
+# C = 1/Lambda. By decreasing C, we increase sparsity and hence should get more zero predictions.
+C = [10, 5, 1, 0.5, 0.1, 0.05, 0.001]
 
+output_file = open('classification_report.txt', 'w')
 
+for c in C:
+    # First model: Lasso (slow), second: Ridge (quick)
+    # Turn one off with # if desired
+    Models = [LogisticRegression(penalty="l1", C=c, solver='saga', max_iter=8000),
+              LogisticRegression(penalty="l2", C=c, solver='lbfgs', max_iter=8000)]
 
-#print(measure1, '%.3f' % mean(scores))
-exit()
+    for model in Models:
 
-# 2: decision tree evaluated on imbalanced dataset with SMOTE oversampling
-# define pipeline
-steps = [('over', SMOTE()), ('model', model)]
-pipeline = Pipeline(steps=steps)
+        # Create lists for the average classification report
+        true_labels = []
+        predicted_labels = []
 
-# evaluate pipeline
-cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(pipeline, X, y, scoring=measure, cv=cv, n_jobs=-1)
-print(measure, '%.3f' % mean(scores))
+        # Over sample to a 1:10 ratio
+        over = SMOTE(sampling_strategy=0.1)
 
+        # Under sample to a 1:2 ratio
+        under = RandomUnderSampler(sampling_strategy=0.5)
 
-# 3: decision tree  on imbalanced dataset with SMOTE oversampling and random undersampling
-# define pipeline
-over = SMOTE(sampling_strategy=0.1)
-under = RandomUnderSampler(sampling_strategy=0.5)
-steps = [('over', over), ('under', under), ('model', model)]
-pipeline = Pipeline(steps=steps)
+        # Pipelines help avoid leaking statistics from your test data into the trained model in cross-validation,
+        # by ensuring that the same samples are used to train the transformers and predictors. Also, the scaler is fit
+        # on the training data, transforms the train data, models are fitted on the train data, and the scaler is used
+        # to transform the test data. Therefore, the test data is not used to determine the scaling parameters.
+        #
+        # After under and over sampling we standardize the data, as this is necessary for Ridge and Lasso. If we
+        # standardize instead of normalize, we still keep the interpretability of our coefficients.
+        # For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
+        # therefore we need to standardize the data so the coefficients are all based on the same scale.
+        #
+        # The folds of the cross-validation are stratified, which means they have the same class distribution as the
+        # original dataset, in this case a 1:32 ratio (3% 1-class, 97 0-class) and later 1:2 (33% 1-class, 66% 0-class).
 
-# evaluate pipeline
-cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(pipeline, X, y, scoring=measure, cv=cv, n_jobs=-1)
-print(measure, '%.3f' % mean(scores))
+        steps = [('over', over), ('under', under), ('scale', StandardScaler()), ('model', model)]
+        pipeline = Pipeline(steps=steps)
 
+        # Nested CV with parameter optimization
+        # Set measure to optimize by changing scoring function: accuracy, recall or f1-score
+        cross_val_score(pipeline, X, y, cv=StratifiedKFold(n_splits=10, shuffle=True, random_state=0),
+                        scoring=make_scorer(classification_report_with_roc_auc))
 
-# 4: grid search k value for SMOTE oversampling for imbalanced classification
-# values to evaluate
-k_values = [1, 2, 3, 4, 5, 6, 7]
+        # Average values in classification report for all folds in a Stratified K-fold Cross-validation
+        print('C:', c)
+        print('model:', model.penalty)
+        print("ROC_AUC score:", roc_auc_score(true_labels, predicted_labels))
+        print(classification_report(true_labels, predicted_labels))
 
-for k in k_values:
-    # define pipeline
-    over = SMOTE(sampling_strategy=0.1, k_neighbors=k)
-    under = RandomUnderSampler(sampling_strategy=0.5)
-    steps = [('over', over), ('under', under), ('model', model)]
-    pipeline = Pipeline(steps=steps)
+        output_file.write("C = %s, model =  %s \n" % (c, model.penalty))
+        output_file.write("ROC_AUC score: %s \n" % roc_auc_score(true_labels, predicted_labels))
+        output_file.write("%s\n" % classification_report(true_labels, predicted_labels))
 
-    # evaluate pipeline
-    cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-    scores = cross_val_score(pipeline, X, y, scoring=measure, cv=cv, n_jobs=-1)
-    score = mean(scores)
-    print(measure, '> k=%d %.3f' % (k, score))
+        # Make ROC/AUC plot
+        fpr, tpr, _ = roc_curve(true_labels, predicted_labels)
+        auc = roc_auc_score(true_labels, predicted_labels)
+        plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
+        plt.legend(loc=4)
+        # plt.show()
+
+output_file.close()

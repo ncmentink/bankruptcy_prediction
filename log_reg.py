@@ -13,6 +13,11 @@ data_woe = pd.read_csv("data_woe.csv")
 X_woe = data_woe.drop('Bankrupt?', axis=1)
 y_woe = data_woe['Bankrupt?']
 
+# Pick a model
+# Lasso
+model = LogisticRegression(penalty="l1", solver='saga', max_iter=8000, C=c)
+# Ridge
+# model = LogisticRegression(penalty="l2", solver='lbfgs', max_iter=8000, C=c)
 
 # 1) LOGISTIC REGRESSION WITHOUT RESAMPLING, WITHOUT SCALING
 # Randomly split into train (0.75%) and test sets (0.25%)

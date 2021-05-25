@@ -1,8 +1,8 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 # Load data
@@ -13,35 +13,34 @@ pd.set_option('display.expand_frame_repr', False)
 print(data.describe(include="all"))
 
 
-# Missing values
-# No missing values
+# Missing values: none
 count_NA = data.isna().sum()
-print('Amount missing values: \n ', count_NA)
-
-# Check for duplicates; there are none
-count_du = data.duplicated().sum()
-print('Check for duplicates: \n',count_du)
+# print(count_NA)
 
 
-# Data transformation
-# 1) Resample by means of SMOTE: oversample y=1 up to a 50/50 ratio
-# 2) Scale the data
+# Check for duplicates: none
+# print(data.duplicated().sum())
 
-# 1) Calculate percentage of bankruptcies: only 3%!
-# So we have very imbalanced class labels
+
+# Calculate percentage of bankruptcies: only 3%!
+# Very imbalanced class labels
 count_defaults = data["Bankrupt?"].value_counts().to_dict()
-print('Percentage of bankruptcy:', count_defaults[1]/(count_defaults[0] + count_defaults[1]))
+# print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
 sns.countplot(x=data['Bankrupt?'])
 plt.show()
 
-# Therefore resample by means of SMOTE
+
+# Data transformation
+# 1) Resample by means of SMOTE since only 3% of 1-class
+# 2) Scale the data
+
+# 1) Resample by means of SMOTE, to 50/50
 X = data.drop('Bankrupt?', axis=1)
 y = data['Bankrupt?']
 X_smote, y_smote = SMOTE().fit_resample(X, y)
 
-
 # 2) Create scaled data
-# Makes a HUGE difference in performance
+# Makes a large difference in performance
 data = y_smote.to_frame().join(X_smote)
 count = 0
 not_scaled = []

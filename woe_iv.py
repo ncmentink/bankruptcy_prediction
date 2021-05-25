@@ -6,11 +6,11 @@ import scipy.stats.stats as stats
 import re
 import traceback
 
-# Resampled but unscaled data
-from data_prep import X_smote, y_smote
+# Load data
+data = pd.read_csv("data.csv")
 
-
-data = y_smote.to_frame().join(X_smote)
+X = data.drop('Bankrupt?', axis=1)
+y = data['Bankrupt?']
 
 # Used binning functions from github
 # https://github.com/Sundar0989/WOE-and-IV/blob/master/WOE_IV.ipynb

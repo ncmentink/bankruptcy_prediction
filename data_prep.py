@@ -16,10 +16,11 @@ print(data.describe(include="all"))
 # Missing values
 # No missing values
 count_NA = data.isna().sum()
-# print(count_NA)
+print('Amount missing values: \n ', count_NA)
 
 # Check for duplicates; there are none
-data.duplicated().sum()
+count_du = data.duplicated().sum()
+print('Check for duplicates: \n',count_du)
 
 
 # Data transformation
@@ -29,9 +30,9 @@ data.duplicated().sum()
 # 1) Calculate percentage of bankruptcies: only 3%!
 # So we have very imbalanced class labels
 count_defaults = data["Bankrupt?"].value_counts().to_dict()
-# print(count_defaults[1]/(count_defaults[0] + count_defaults[1]))
-# sns.countplot(x=data['Bankrupt?'])
-# plt.show()
+print('Percentage of bankruptcy:', count_defaults[1]/(count_defaults[0] + count_defaults[1]))
+sns.countplot(x=data['Bankrupt?'])
+plt.show()
 
 # Therefore resample by means of SMOTE
 X = data.drop('Bankrupt?', axis=1)

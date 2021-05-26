@@ -4,10 +4,12 @@ from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, make_scorer, accuracy_score, \
     f1_score, recall_score, roc_curve, roc_auc_score
+from sklearn.metrics import precision_recall_fscore_support as score
 from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 import matplotlib.pyplot as plt
+import json
 
 # Load data
 data = pd.read_csv("data.csv")
@@ -45,16 +47,31 @@ def classification_report_with_roc_auc(y_true, y_pred):
 
 
 # C = 1/Lambda. By decreasing C, we increase sparsity and hence should get more zero predictions.
-C = [10, 5, 1, 0.5, 0.1, 0.05, 0.001]
+C = [0.001, 0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 0.02, 0.03, 0.04, 0.05,
+     0.06, 0.07, 0.08, 0.09, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4,
+     1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 3, 4, 5, 6, 7, 8, 9, 10]
+# C = [10, 5 , 1, 0.5, 0.1, 0.05, 0.001]
 
 output_file = open('classification_report.txt', 'w')
+
+X_plot = []
+y_plot = []
+precision0 = []
+precision1 = []
+recall0 = []
+recall1 = []
+f1_score0 = []
+f1_score1 = []
+ROC_AUC = []
+accuracy = []
 
 for c in C:
     # First model: Lasso (slow), second: Ridge (quick)
     # Turn one off with # if desired
-    Models = [LogisticRegression(penalty="l1", C=c, solver='saga', max_iter=8000),
-              LogisticRegression(penalty="l2", C=c, solver='lbfgs', max_iter=8000)]
-
+    # Models = [LogisticRegression(penalty="l1", C=c, solver='saga', max_iter=8000)
+    #     , LogisticRegression(penalty="l2", C=c, solver='lbfgs', max_iter=8000)]
+    #Models = [LogisticRegression(penalty="l2", C=c, solver='lbfgs', max_iter=8000)]
+    Models = [LogisticRegression(penalty="l1", C=c, solver='saga', max_iter=8000, zer)]
     for model in Models:
 
         # Create lists for the average classification report
@@ -86,7 +103,7 @@ for c in C:
         # Nested CV with parameter optimization
         # Set measure to optimize by changing scoring function: accuracy, recall or f1-score
         cross_val_score(pipeline, X, y, cv=StratifiedKFold(n_splits=10, shuffle=True, random_state=0),
-                        scoring=make_scorer(classification_report_with_roc_auc))
+                        scoring=make_scorer(classification_report_with_recall))
 
         # Average values in classification report for all folds in a Stratified K-fold Cross-validation
         print('C:', c)
@@ -99,10 +116,65 @@ for c in C:
         output_file.write("%s\n" % classification_report(true_labels, predicted_labels))
 
         # Make ROC/AUC plot
-        fpr, tpr, _ = roc_curve(true_labels, predicted_labels)
+        # fpr, tpr, _ = roc_curve(true_labels, predicted_labels)
         auc = roc_auc_score(true_labels, predicted_labels)
-        plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
-        plt.legend(loc=4)
+        # plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
+        # plt.legend(loc=4)
         # plt.show()
+
+        precision, recall, fscore, support = score(true_labels, predicted_labels, average=None)
+
+        precision0.append(precision[0])
+        precision1.append(precision[1])
+        recall0.append(recall[0])
+        recall1.append(recall[1])
+        f1_score0.append(fscore[0])
+        f1_score1.append(fscore[1])
+
+        ROC_AUC.append(roc_auc_score(true_labels, predicted_labels))
+        accuracy.append(accuracy_score(true_labels, predicted_labels, normalize=True))
+
+    X_plot.append(c)
+    y_plot = recall1
+
+print(precision0)
+print(precision1)
+print(recall0)
+print(recall1)
+print(f1_score0)
+print(f1_score1)
+print(ROC_AUC)
+print(accuracy)
+
+
+# fig = plt.figure()
+# ax = plt.axes()
+# plt.title("ROC_AUC score for different values of C")
+# plt.xlabel('Different values of C', fontsize=18)
+# plt.ylabel('ROC_AUC score', fontsize=16)
+# ax.plot(X_plot, y_plot, marker='o')
+# plt.show()
+
+with open("lists for different C's/C.txt", 'w') as f:
+    f.write(json.dumps(C))
+with open("lists for different C's/L1_precision1.txt", 'w') as f:
+    f.write(json.dumps(precision0))
+with open("lists for different C's/L1_precision2.txt", 'w') as f:
+    f.write(json.dumps(precision1))
+with open("lists for different C's/L1_recall1.txt", 'w') as f:
+    f.write(json.dumps(recall0))
+with open("lists for different C's/L1_recall2.txt", 'w') as f:
+    f.write(json.dumps(recall1))
+with open("lists for different C's/L1_f1_score1.txt", 'w') as f:
+    f.write(json.dumps(f1_score0))
+with open("lists for different C's/L1_f1_score2.txt", 'w') as f:
+    f.write(json.dumps(f1_score1))
+with open("lists for different C's/L1_ROC_AUC.txt", 'w') as f:
+    f.write(json.dumps(ROC_AUC))
+with open("lists for different C's/L1_accuracy.txt", 'w') as f:
+    f.write(json.dumps(accuracy))
+
+
+
 
 output_file.close()

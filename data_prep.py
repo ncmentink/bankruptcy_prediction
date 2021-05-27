@@ -8,10 +8,37 @@ import matplotlib.pyplot as plt
 # Load data
 data = pd.read_csv("data.csv")
 
+pd.set_option('display.max_columns', None)
+pd.set_option('display.max_rows', None)
 # Data exploration: descriptive statistics
 pd.set_option('display.expand_frame_repr', False)
 print(data.describe(include="all"))
 
+# Plotting Boxplots of the numerical features, first plot is of first 48 features
+plt.figure(figsize = (20,20))
+ax =sns.boxplot(data = data.iloc[:,:48], orient="h")
+ax.set_title('Boxplot bank data (first 47 features)', fontsize = 18)
+ax.set(xscale="log")
+plt.show()
+
+# Second plot is of last 48 features
+plt.figure(figsize = (20,20))
+ax =sns.boxplot(data = data.iloc[:,48:], orient="h")
+ax.set_title('Boxplot bank data (last 48 features)', fontsize = 18)
+ax.set(xscale="log")
+plt.show()
+
+
+exit()
+
+
+# for i in range(len(data)):
+#     if data.iloc[i,47] > 1000:
+#         print(data.iloc[i,47])
+#         print('Bankruptcy: ', data.iloc[i,0])
+#     else:
+#         continue
+# exit()
 
 # Missing values: none
 count_NA = data.isna().sum()
@@ -55,3 +82,45 @@ data[not_scaled] = scaling_function.fit_transform(data[not_scaled])
 
 X_smote_sc = data.drop('Bankrupt?', axis=1)
 y_smote_sc = data['Bankrupt?']
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+
+# We standardize the data, as this is necessary for Ridge and Lasso
+# For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
+# therefore we need to standardize the data so the coefficients are all based on the same scale.
+sc = StandardScaler()
+
+# Fit the scaler to the training data and transform
+X_train_std = sc.fit_transform(X_train)
+
+# Apply the scaler to the test data
+X_test_std = sc.transform(X_test)
+
+# C = 1/Lambda. By decreasing C, we increase sparsity and hence should get more zero predictions
+C = [0.07]
+#C = [10, 5, 1, 0.5, .1, 0.05, .001]
+
+
+# Lasso
+for c in C:
+    clf = LogisticRegression(penalty='l1', C=c, solver='saga', max_iter=8000)
+    clf.fit(X_train_std, y_train)
+    print('C:', c)
+    print('Coefficient of each feature:', clf.coef_)
+    print('Training accuracy:', clf.score(X_train_std, y_train))
+    print('Test accuracy:', clf.score(X_test_std, y_test))
+    print('')
+
+# # Ridge
+# for c in C:
+#     clf = LogisticRegression(penalty='l2', C=c, solver='lbfgs', max_iter=8000)
+#     clf.fit(X_train_std, y_train)
+#     print('C:', c)
+#     print('Coefficient of each feature:', clf.coef_)
+#     print('Training accuracy:', clf.score(X_train_std, y_train))
+#     print('Test accuracy:', clf.score(X_test_std, y_test))
+#     print('')

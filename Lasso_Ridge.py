@@ -22,15 +22,15 @@ X_test_std = sc.transform(X_test)
 C = [10, 5, 1, 0.5, .1, 0.05, .001]
 
 
-# Lasso
-for c in C:
-    clf = LogisticRegression(penalty='l1', C=c, solver='saga', max_iter=8000)
-    clf.fit(X_train_std, y_train)
-    print('C:', c)
-    print('Coefficient of each feature:', clf.coef_)
-    print('Training accuracy:', clf.score(X_train_std, y_train))
-    print('Test accuracy:', clf.score(X_test_std, y_test))
-    print('')
+# # Lasso
+# for c in C:
+#     clf = LogisticRegression(penalty='l1', C=c, solver='saga', max_iter=8000)
+#     clf.fit(X_train_std, y_train)
+#     print('C:', c)
+#     print('Coefficient of each feature:', clf.coef_)
+#     print('Training accuracy:', clf.score(X_train_std, y_train))
+#     print('Test accuracy:', clf.score(X_test_std, y_test))
+#     print('')
 
 # Ridge
 for c in C:

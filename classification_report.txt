@@ -1,225 +1,38 @@
-C = 0.001, model =  l1 
-ROC_AUC score: 0.5 
-              precision    recall  f1-score   support
-
-           0       0.97      1.00      0.98      6599
-           1       0.00      0.00      0.00       220
-
-    accuracy                           0.97      6819
-   macro avg       0.48      0.50      0.49      6819
-weighted avg       0.94      0.97      0.95      6819
-
-C = 0.002, model =  l1 
-ROC_AUC score: 0.5 
-              precision    recall  f1-score   support
-
-           0       0.97      1.00      0.98      6599
-           1       0.00      0.00      0.00       220
-
-    accuracy                           0.97      6819
-   macro avg       0.48      0.50      0.49      6819
-weighted avg       0.94      0.97      0.95      6819
-
-C = 0.003, model =  l1 
-ROC_AUC score: 0.5631056358401411 
-              precision    recall  f1-score   support
-
-           0       0.97      0.99      0.98      6599
-           1       0.44      0.13      0.20       220
-
-    accuracy                           0.97      6819
-   macro avg       0.71      0.56      0.59      6819
-weighted avg       0.95      0.97      0.96      6819
-
-C = 0.004, model =  l1 
-ROC_AUC score: 0.6773471187094464 
-              precision    recall  f1-score   support
-
-           0       0.98      0.98      0.98      6599
-           1       0.41      0.37      0.39       220
-
-    accuracy                           0.96      6819
-   macro avg       0.69      0.68      0.69      6819
-weighted avg       0.96      0.96      0.96      6819
-
-C = 0.005, model =  l1 
-ROC_AUC score: 0.7243160120679443 
-              precision    recall  f1-score   support
-
-           0       0.98      0.97      0.98      6599
-           1       0.36      0.48      0.41       220
-
-    accuracy                           0.96      6819
-   macro avg       0.67      0.72      0.69      6819
-weighted avg       0.96      0.96      0.96      6819
-
-C = 0.006, model =  l1 
-ROC_AUC score: 0.7426486795519982 
-              precision    recall  f1-score   support
-
-           0       0.98      0.96      0.97      6599
-           1       0.32      0.52      0.40       220
-
-    accuracy                           0.95      6819
-   macro avg       0.65      0.74      0.68      6819
-weighted avg       0.96      0.95      0.95      6819
-
-C = 0.007, model =  l1 
-ROC_AUC score: 0.7583301188885369 
-              precision    recall  f1-score   support
-
-           0       0.98      0.96      0.97      6599
-           1       0.31      0.56      0.39       220
-
-    accuracy                           0.94      6819
-   macro avg       0.65      0.76      0.68      6819
-weighted avg       0.96      0.94      0.95      6819
-
-C = 0.008, model =  l1 
-ROC_AUC score: 0.7716630618964305 
-              precision    recall  f1-score   support
-
-           0       0.99      0.95      0.97      6599
-           1       0.29      0.59      0.39       220
-
-    accuracy                           0.94      6819
-   macro avg       0.64      0.77      0.68      6819
-weighted avg       0.96      0.94      0.95      6819
-
-C = 0.009, model =  l1 
-ROC_AUC score: 0.7773447078758489 
-              precision    recall  f1-score   support
-
-           0       0.99      0.95      0.97      6599
-           1       0.29      0.60      0.39       220
-
-    accuracy                           0.94      6819
-   macro avg       0.64      0.78      0.68      6819
-weighted avg       0.96      0.94      0.95      6819
-
-C = 0.01, model =  l1 
-ROC_AUC score: 0.7807536265825401 
-              precision    recall  f1-score   support
-
-           0       0.99      0.95      0.97      6599
-           1       0.28      0.61      0.39       220
-
-    accuracy                           0.94      6819
-   macro avg       0.63      0.78      0.68      6819
-weighted avg       0.96      0.94      0.95      6819
-
-C = 0.02, model =  l1 
-ROC_AUC score: 0.8222678367245726 
-              precision    recall  f1-score   support
-
-           0       0.99      0.94      0.96      6599
-           1       0.27      0.71      0.39       220
-
-    accuracy                           0.93      6819
-   macro avg       0.63      0.82      0.68      6819
-weighted avg       0.97      0.93      0.94      6819
-
-C = 0.03, model =  l1 
-ROC_AUC score: 0.8247675267602529 
-              precision    recall  f1-score   support
-
-           0       0.99      0.93      0.96      6599
-           1       0.26      0.72      0.38       220
-
-    accuracy                           0.92      6819
-   macro avg       0.62      0.82      0.67      6819
-weighted avg       0.97      0.92      0.94      6819
-
-C = 0.04, model =  l1 
-ROC_AUC score: 0.8253733348027937 
-              precision    recall  f1-score   support
-
-           0       0.99      0.93      0.96      6599
-           1       0.25      0.72      0.37       220
-
-    accuracy                           0.92      6819
-   macro avg       0.62      0.83      0.67      6819
-weighted avg       0.97      0.92      0.94      6819
-
-C = 0.05, model =  l1 
-ROC_AUC score: 0.8265095262367577 
-              precision    recall  f1-score   support
-
-           0       0.99      0.93      0.96      6599
-           1       0.25      0.73      0.37       220
-
-    accuracy                           0.92      6819
-   macro avg       0.62      0.83      0.66      6819
-weighted avg       0.97      0.92      0.94      6819
-
-C = 0.06, model =  l1 
-ROC_AUC score: 0.8306761355026244 
+C = 0.01, model =  l2 
+ROC_AUC score: 0.8214336882998802 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.96      6599
-           1       0.25      0.74      0.37       220
+           1       0.24      0.72      0.36       220
 
     accuracy                           0.92      6819
-   macro avg       0.62      0.83      0.66      6819
+   macro avg       0.62      0.82      0.66      6819
 weighted avg       0.97      0.92      0.94      6819
 
-C = 0.07, model =  l1 
-ROC_AUC score: 0.8415851575307552 
+C = 0.02, model =  l2 
+ROC_AUC score: 0.8051457521112015 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.96      6599
-           1       0.25      0.76      0.38       220
+           1       0.23      0.69      0.35       220
 
     accuracy                           0.92      6819
-   macro avg       0.62      0.84      0.67      6819
-weighted avg       0.97      0.92      0.94      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.92      0.94      6819
 
-C = 0.08, model =  l1 
-ROC_AUC score: 0.8371912410971359 
+C = 0.03, model =  l2 
+ROC_AUC score: 0.8184032704679772 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.96      6599
-           1       0.25      0.75      0.37       220
+           1       0.24      0.71      0.36       220
 
     accuracy                           0.92      6819
-   macro avg       0.62      0.84      0.66      6819
+   macro avg       0.61      0.82      0.66      6819
 weighted avg       0.97      0.92      0.94      6819
 
-C = 0.09, model =  l1 
-ROC_AUC score: 0.837342779208971 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.96      6599
-           1       0.25      0.75      0.37       220
-
-    accuracy                           0.92      6819
-   macro avg       0.62      0.84      0.67      6819
-weighted avg       0.97      0.92      0.94      6819
-
-C = 0.1, model =  l1 
-ROC_AUC score: 0.8347669757125735 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.96      6599
-           1       0.25      0.75      0.37       220
-
-    accuracy                           0.92      6819
-   macro avg       0.62      0.83      0.66      6819
-weighted avg       0.97      0.92      0.94      6819
-
-C = 0.2, model =  l1 
-ROC_AUC score: 0.8315850197688355 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.96      6599
-           1       0.24      0.74      0.36       220
-
-    accuracy                           0.92      6819
-   macro avg       0.62      0.83      0.66      6819
-weighted avg       0.97      0.92      0.94      6819
-
-C = 0.3, model =  l1 
-ROC_AUC score: 0.8177971180206366 
+C = 0.04, model =  l2 
+ROC_AUC score: 0.8177213489647192 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
@@ -229,74 +42,41 @@ ROC_AUC score: 0.8177971180206366
    macro avg       0.61      0.82      0.65      6819
 weighted avg       0.97      0.92      0.94      6819
 
-C = 0.4, model =  l1 
-ROC_AUC score: 0.837569741971924 
+C = 0.05, model =  l2 
+ROC_AUC score: 0.8154482772871923 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.24      0.75      0.36       220
+           1       0.22      0.71      0.34       220
 
-    accuracy                           0.92      6819
-   macro avg       0.62      0.84      0.66      6819
-weighted avg       0.97      0.92      0.94      6819
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
 
-C = 0.5, model =  l1 
-ROC_AUC score: 0.8258272603287 
+C = 0.06, model =  l2 
+ROC_AUC score: 0.8277969113777569 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.23      0.73      0.35       220
+           1       0.23      0.74      0.35       220
 
     accuracy                           0.91      6819
    macro avg       0.61      0.83      0.65      6819
 weighted avg       0.97      0.91      0.93      6819
 
-C = 0.6, model =  l1 
-ROC_AUC score: 0.8255241841050297 
+C = 0.07, model =  l2 
+ROC_AUC score: 0.8136305087547702 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.23      0.73      0.35       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.83      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
-
-C = 0.7, model =  l1 
-ROC_AUC score: 0.8210541542106932 
-              precision    recall  f1-score   support
-
-           0       0.99      0.91      0.95      6599
-           1       0.22      0.73      0.34       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.82      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
-
-C = 0.8, model =  l1 
-ROC_AUC score: 0.818100194244307 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.24      0.71      0.35       220
+           1       0.23      0.70      0.35       220
 
     accuracy                           0.92      6819
-   macro avg       0.61      0.82      0.65      6819
+   macro avg       0.61      0.81      0.65      6819
 weighted avg       0.97      0.92      0.94      6819
 
-C = 0.9, model =  l1 
-ROC_AUC score: 0.8189333094546006 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.23      0.72      0.35       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.82      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
-
-C = 1, model =  l1 
-ROC_AUC score: 0.8106758599787847 
+C = 0.08, model =  l2 
+ROC_AUC score: 0.8087819779856452 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
@@ -306,7 +86,161 @@ ROC_AUC score: 0.8106758599787847
    macro avg       0.61      0.81      0.65      6819
 weighted avg       0.96      0.91      0.93      6819
 
-C = 1.1, model =  l1 
+C = 0.09, model =  l2 
+ROC_AUC score: 0.825296876937277 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.73      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.83      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.1, model =  l2 
+ROC_AUC score: 0.8188575403986831 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.72      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.11, model =  l2 
+ROC_AUC score: 0.8290088718676384 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.74      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.83      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.12, model =  l2 
+ROC_AUC score: 0.8126455110278417 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.70      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.13, model =  l2 
+ROC_AUC score: 0.8079485183705519 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.70      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.14, model =  l2 
+ROC_AUC score: 0.8321904834065768 
+              precision    recall  f1-score   support
+
+           0       0.99      0.91      0.95      6599
+           1       0.23      0.75      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.83      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.15, model =  l2 
+ROC_AUC score: 0.8193118103293887 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.72      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.16, model =  l2 
+ROC_AUC score: 0.8143120858532285 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.71      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.17, model =  l2 
+ROC_AUC score: 0.8081758255383047 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.70      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.18, model =  l2 
+ROC_AUC score: 0.8142363167973108 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.71      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.19, model =  l2 
+ROC_AUC score: 0.8187060022868479 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.72      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.2, model =  l2 
+ROC_AUC score: 0.8065089063081181 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.70      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.81      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.2, model =  l2 
+ROC_AUC score: 0.8153728526360743 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.71      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.21, model =  l2 
+ROC_AUC score: 0.8224937662731269 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.73      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.22, model =  l2 
 ROC_AUC score: 0.8171909655732962 
               precision    recall  f1-score   support
 
@@ -317,73 +251,40 @@ ROC_AUC score: 0.8171909655732962
    macro avg       0.61      0.82      0.65      6819
 weighted avg       0.97      0.91      0.93      6819
 
-C = 1.2, model =  l1 
-ROC_AUC score: 0.8255241841050297 
+C = 0.23, model =  l2 
+ROC_AUC score: 0.8155243907479094 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.23      0.73      0.35       220
+           1       0.23      0.71      0.35       220
 
-    accuracy                           0.91      6819
-   macro avg       0.61      0.83      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
-
-C = 1.3, model =  l1 
-ROC_AUC score: 0.7970394963424211 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.67      0.33       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.80      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 1.4, model =  l1 
-ROC_AUC score: 0.8069635206436238 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.34       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.81      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 1.5, model =  l1 
-ROC_AUC score: 0.8074181349791291 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.34       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.81      0.65      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 1.6, model =  l1 
-ROC_AUC score: 0.8197667690696938 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.23      0.72      0.35       220
-
-    accuracy                           0.91      6819
+    accuracy                           0.92      6819
    macro avg       0.61      0.82      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
+weighted avg       0.97      0.92      0.94      6819
 
-C = 1.7, model =  l1 
-ROC_AUC score: 0.8093120169722685 
+C = 0.24, model =  l2 
+ROC_AUC score: 0.8140090096295581 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.34       220
+           1       0.23      0.71      0.34       220
 
     accuracy                           0.91      6819
    macro avg       0.61      0.81      0.65      6819
 weighted avg       0.96      0.91      0.93      6819
 
-C = 1.8, model =  l1 
+C = 0.25, model =  l2 
+ROC_AUC score: 0.8084027883012577 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.70      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.81      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.26, model =  l2 
 ROC_AUC score: 0.8168121202937084 
               precision    recall  f1-score   support
 
@@ -394,85 +295,19 @@ ROC_AUC score: 0.8168121202937084
    macro avg       0.61      0.82      0.65      6819
 weighted avg       0.97      0.91      0.93      6819
 
-C = 1.9, model =  l1 
-ROC_AUC score: 0.8109028227417377 
+C = 0.27, model =  l2 
+ROC_AUC score: 0.8349939384755266 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.34       220
+           1       0.24      0.75      0.36       220
 
     accuracy                           0.91      6819
-   macro avg       0.61      0.81      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
+   macro avg       0.61      0.83      0.66      6819
+weighted avg       0.97      0.91      0.94      6819
 
-C = 2.0, model =  l1 
-ROC_AUC score: 0.799918031657689 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.68      0.33       220
-
-    accuracy                           0.91      6819
-   macro avg       0.60      0.80      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 3, model =  l1 
-ROC_AUC score: 0.8051454077064018 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.69      0.34       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.81      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 4, model =  l1 
-ROC_AUC score: 0.81052397746215 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.33       220
-
-    accuracy                           0.91      6819
-   macro avg       0.60      0.81      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 5, model =  l1 
-ROC_AUC score: 0.8096150931959387 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.34       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.81      0.65      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 6, model =  l1 
-ROC_AUC score: 0.813402512777418 
-              precision    recall  f1-score   support
-
-           0       0.99      0.91      0.95      6599
-           1       0.22      0.71      0.33       220
-
-    accuracy                           0.91      6819
-   macro avg       0.60      0.81      0.64      6819
-weighted avg       0.96      0.91      0.93      6819
-
-C = 7, model =  l1 
-ROC_AUC score: 0.8157513535108626 
-              precision    recall  f1-score   support
-
-           0       0.99      0.92      0.95      6599
-           1       0.22      0.71      0.34       220
-
-    accuracy                           0.91      6819
-   macro avg       0.61      0.82      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
-
-C = 8, model =  l1 
-ROC_AUC score: 0.8099939384755266 
+C = 0.28, model =  l2 
+ROC_AUC score: 0.8123424348041715 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
@@ -482,25 +317,245 @@ ROC_AUC score: 0.8099939384755266
    macro avg       0.61      0.81      0.65      6819
 weighted avg       0.96      0.91      0.93      6819
 
-C = 9, model =  l1 
-ROC_AUC score: 0.81582712256678 
+C = 0.29, model =  l2 
+ROC_AUC score: 0.8184029260631777 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.72      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.3, model =  l2 
+ROC_AUC score: 0.8068877515877061 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.70      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.31, model =  l2 
+ROC_AUC score: 0.8196152309578587 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.72      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.32, model =  l2 
+ROC_AUC score: 0.813478970642935 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.70      0.35       220
+
+    accuracy                           0.92      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.97      0.92      0.94      6819
+
+C = 0.33, model =  l2 
+ROC_AUC score: 0.8024938351540868 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.69      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.80      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.34, model =  l2 
+ROC_AUC score: 0.8125693975671244 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
            1       0.22      0.71      0.34       220
 
     accuracy                           0.91      6819
-   macro avg       0.61      0.82      0.65      6819
-weighted avg       0.97      0.91      0.93      6819
+   macro avg       0.60      0.81      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
 
-C = 10, model =  l1 
-ROC_AUC score: 0.8083270192453401 
+C = 0.35, model =  l2 
+ROC_AUC score: 0.7959787295595752 
               precision    recall  f1-score   support
 
            0       0.99      0.92      0.95      6599
-           1       0.22      0.70      0.33       220
+           1       0.22      0.67      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.80      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.36, model =  l2 
+ROC_AUC score: 0.8273422970422516 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.74      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.83      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.37, model =  l2 
+ROC_AUC score: 0.8122666657482539 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.70      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.38, model =  l2 
+ROC_AUC score: 0.8205995398751876 
+              precision    recall  f1-score   support
+
+           0       0.99      0.91      0.95      6599
+           1       0.22      0.73      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.82      0.64      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.39, model =  l2 
+ROC_AUC score: 0.8192360412734712 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.72      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.4, model =  l2 
+ROC_AUC score: 0.8031754122525452 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.21      0.69      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.80      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.41, model =  l2 
+ROC_AUC score: 0.8142363167973108 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.71      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.42, model =  l2 
+ROC_AUC score: 0.8123420903993718 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.71      0.33       220
 
     accuracy                           0.91      6819
    macro avg       0.60      0.81      0.64      6819
 weighted avg       0.96      0.91      0.93      6819
+
+C = 0.43, model =  l2 
+ROC_AUC score: 0.81802373637879 
+              precision    recall  f1-score   support
+
+           0       0.99      0.91      0.95      6599
+           1       0.22      0.72      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.82      0.64      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.44, model =  l2 
+ROC_AUC score: 0.8228726115527146 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.73      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.45, model =  l2 
+ROC_AUC score: 0.8118120514127485 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.70      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.65      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.46, model =  l2 
+ROC_AUC score: 0.8012057612034881 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.21      0.69      0.33       220
+
+    accuracy                           0.91      6819
+   macro avg       0.60      0.80      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.47, model =  l2 
+ROC_AUC score: 0.8221910344542562 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.24      0.72      0.35       220
+
+    accuracy                           0.92      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.92      0.94      6819
+
+C = 0.48, model =  l2 
+ROC_AUC score: 0.8277969113777569 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.74      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.83      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
+
+C = 0.49, model =  l2 
+ROC_AUC score: 0.8071150587554587 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.22      0.70      0.34       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.81      0.64      6819
+weighted avg       0.96      0.91      0.93      6819
+
+C = 0.5, model =  l2 
+ROC_AUC score: 0.8247664935458541 
+              precision    recall  f1-score   support
+
+           0       0.99      0.92      0.95      6599
+           1       0.23      0.73      0.35       220
+
+    accuracy                           0.91      6819
+   macro avg       0.61      0.82      0.65      6819
+weighted avg       0.97      0.91      0.93      6819
 

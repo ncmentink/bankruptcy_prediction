@@ -1,73 +1,69 @@
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import pandas as pd
+from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import RandomUnderSampler
+from collections import Counter
 
-# Load the variables for logistic regression
-from data_prep import X, y, X_smote, y_smote, X_smote_sc, y_smote_sc
+# Load data
+data = pd.read_csv("data.csv")
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
+X = data.drop('Bankrupt?', axis=1)
+y = data['Bankrupt?']
+
 
 # We standardize the data, as this is necessary for Ridge and Lasso
-# For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
-# therefore we need to standardize the data so the coefficients are all based on the same scale.
-sc = StandardScaler()
-
-# Fit the scaler to the training data and transform
-X_train_std = sc.fit_transform(X_train)
-
-# Apply the scaler to the test data
-X_test_std = sc.transform(X_test)
+# Fit the scaler to X
+X = StandardScaler().fit_transform(X)
+print(Counter(y))
+# Oversample minority class to a 1:10 ratio
+X, y = SMOTE(sampling_strategy=0.1).fit_resample(X, y)
+print(Counter(y))
+# Under sample majority class to a 2:1 ratio
+X, y = RandomUnderSampler(sampling_strategy=0.5).fit_resample(X, y)
+print(Counter(y))
 
 # C = 1/Lambda. By decreasing C, we increase sparsity and hence should get more zero predictions
-C = [10, 5, 1, 0.5, .1, 0.05, .001]
-
+# With Stratified K-fold Cross validation we found that c=0.07 gives the best recall
+c = 0.07
 
 # Lasso
-for c in C:
-    clf = LogisticRegression(penalty='l1', C=c, solver='saga', max_iter=8000)
-    clf.fit(X_train_std, y_train)
-    print('C:', c)
-    print('Coefficient of each feature:', clf.coef_)
-    print('Training accuracy:', clf.score(X_train_std, y_train))
-    print('Test accuracy:', clf.score(X_test_std, y_test))
-    print('')
+lasso = LogisticRegression(penalty='l1', C=c, solver='saga', max_iter=8000)
+lasso.fit(X, y)
+coeff = lasso.coef_[0]
+
+print('C:', c)
+print('Coefficient of each feature:', coeff)
+
+# Summarize feature importance
+for i, v in enumerate(coeff):
+    print('Feature: %0d, Score: %.5f' % (i, v))
+
+# Plot feature importance
+labels = data.columns[1:]
+plt.bar([x for x in range(len(coeff))], coeff, tick_label=labels)
+plt.xticks(rotation=90)
+plt.ylabel('Coefficient size of Logistic Lasso')
+plt.show()
+
 
 # Ridge
-for c in C:
-    clf = LogisticRegression(penalty='l2', C=c, solver='lbfgs', max_iter=8000)
-    clf.fit(X_train_std, y_train)
-    print('C:', c)
-    print('Coefficient of each feature:', clf.coef_)
-    print('Training accuracy:', clf.score(X_train_std, y_train))
-    print('Test accuracy:', clf.score(X_test_std, y_test))
-    print('')
+ridge = LogisticRegression(penalty='l2', C=c, solver='lbfgs', max_iter=8000)
+ridge.fit(X, y)
+coeff = ridge.coef_[0]
+
+print('C:', c)
+print('Coefficient of each feature:', coeff)
 
 
+# Summarize feature importance/coefficients
+for i, v in enumerate(coeff):
+    print('Feature: %0d, Score: %.5f' % (i, v))
 
-
-
-"""
-Old code with simple cross validation instead of StratifiedKFold pipeline
-
-
-X_train, X_test, y_train, y_test = train_test_split(X_smote_sc, y_smote_sc, test_size=0.25, random_state=0)
-
-# Logistic Lasso 
-log_las = LogisticRegression(penalty='l1', solver='saga', max_iter=8000, C=10)
-log_las.fit(X_train, y_train)
-y_pred = log_las.predict(X_test)
-print(log_las.coef_)
-
-print(confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
-
-
-# Logistic Ridge
-log_rid = LogisticRegression(penalty='l2', solver='lbfgs', max_iter=8000, C=10)
-log_rid.fit(X_train, y_train)
-y_pred = log_rid.predict(X_test)
-print(log_rid.coef_)
-
-print(confusion_matrix(y_test, y_pred))
-print(classification_report(y_test, y_pred))
-"""
+# Plot feature importance/coefficients
+labels = data.columns[1:]
+plt.bar([x for x in range(len(coeff))], coeff, tick_label=labels)
+plt.xticks(rotation=90)
+plt.ylabel('Coefficient size of Logistic Ridge')
+plt.show()

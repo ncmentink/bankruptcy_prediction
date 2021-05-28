@@ -7,11 +7,16 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report
 
 # Load the variables for logistic regression
-from data_prep import X, y, X_smote, y_smote, X_smote_sc, y_smote_sc
+# Load data
+data = pd.read_csv("data.csv")
 
+X = data.drop('Bankrupt?', axis=1)
+y = data['Bankrupt?']
 data_woe = pd.read_csv("data_woe.csv")
 X_woe = data_woe.drop('Bankrupt?', axis=1)
 y_woe = data_woe['Bankrupt?']
+
+c = [0.07]
 
 # Pick a model
 # Lasso
@@ -37,6 +42,9 @@ plt.show()
 # Print performance measures
 print("lr without resampling, unscaled")
 print(classification_report(y_test, y_pred))
+
+
+exit()
 
 # Make ROC/AUC plot
 y_pred_proba = lr.predict_proba(X_test)[::, 1]

@@ -6,9 +6,15 @@ from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.preprocessing import StandardScaler
+import pandas as pd
 
 # Load the variables for logistic regression
-from data_prep import X, y, X_smote, y_smote, X_smote_sc, y_smote_sc
+# Load data
+data = pd.read_csv("data.csv")
+
+X = data.drop('Bankrupt?', axis=1)
+y = data['Bankrupt?']
+print('test')
 
 """
 #lasso smote sc
@@ -32,7 +38,7 @@ X = StandardScaler().fit_transform(X)
 
 # Pick model
 # Lasso
-# model = LogisticRegression(penalty="l1", solver='saga', max_iter=8000)
+model = LogisticRegression(penalty="l1", solver='saga', max_iter=8000)
 
 # Ridge
 model = LogisticRegression(penalty="l2", solver='lbfgs', max_iter=8000)
@@ -55,7 +61,7 @@ scores4 = cross_val_score(model, X, y, scoring=measure4, cv=cv, n_jobs=-1)
 print(measure1, '%.3f' % mean(scores1),'\n',measure2, '%.3f' % mean(scores2),'\n',
       measure3, '%.3f' % mean(scores3),'\n',measure4, '%.3f' % mean(scores4))
 
-exit()
+
 
 
 def classification_report_with_accuracy_score(y_true, y_pred):
@@ -69,6 +75,7 @@ cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
 scores = cross_val_score(model, X, y,scoring=make_scorer(classification_report_with_accuracy_score), cv=cv, n_jobs=-1)
 
 print(scores)
+
 
 # 1: decision tree evaluated on imbalanced dataset
 # evaluate pipeline
@@ -90,7 +97,7 @@ cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
 scores = cross_val_score(model, X, y,scoring=make_scorer(classification_report_with_accuracy_score), cv=cv, n_jobs=-1)
 
 # Average values in classification report for all folds in a K-fold Cross-validation
-print(classification_report(originalclass, predictedclass))
+print(classification_report)
 
 exit()
 cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)

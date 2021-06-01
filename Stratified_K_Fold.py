@@ -1,13 +1,15 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, make_scorer, accuracy_score, \
     f1_score, recall_score, roc_curve, roc_auc_score
+
 from imblearn.pipeline import Pipeline
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import RandomUnderSampler
-import matplotlib.pyplot as plt
 
 # Load data
 data = pd.read_csv("data.csv")
@@ -45,7 +47,8 @@ def classification_report_with_roc_auc(y_true, y_pred):
 
 # Choose a range of values for C = 1/Lambda.
 # By decreasing C, we increase sparsity and get more zero predictions.
-C = [10, 5, 1, 0.5, 0.1, 0.05, 0.001]
+# C = [10, 5, 1, 0.5, 0.1, 0.05, 0.001]
+C = [0.07]
 
 output_file = open('classification_report.txt', 'w')
 
@@ -63,11 +66,11 @@ for c in C:
         predicted_labels = []
 
         # Over sample to a 1:10 ratio
-        # alpha = (# in minority class / # in majority class after resampling)
-        over = SMOTE(sampling_strategy=0.1, random_state=0)
+        over = SMOTE(sampling_strategy=0.1, random_state=3)
 
         # Under sample to a 1:2 ratio.
-        under = RandomUnderSampler(sampling_strategy=0.5, random_state=0)
+        # alpha = (# in minority class / # in majority class after resampling)
+        under = RandomUnderSampler(sampling_strategy=0.5, random_state=3)
 
         # Folds are stratified; therefore have the same ratio as original dataset.
         # Original: 1:32 ratio (3% 1-class, 97 0-class);
@@ -97,6 +100,6 @@ for c in C:
         auc = roc_auc_score(true_labels, predicted_labels)
         plt.plot(fpr, tpr, label="data 1, auc=" + str(auc))
         plt.legend(loc=4)
-        # plt.show()
+        plt.show()
 
 output_file.close()

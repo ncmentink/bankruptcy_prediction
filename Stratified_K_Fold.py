@@ -66,10 +66,10 @@ for c in C:
         predicted_labels = []
 
         # Over sample to a 1:10 ratio
-        # alpha = (# in minority class / # in majority class after resampling)
         over = SMOTE(sampling_strategy=0.1, random_state=3)
 
         # Under sample to a 1:2 ratio.
+        # alpha = (# in minority class / # in majority class after resampling)
         under = RandomUnderSampler(sampling_strategy=0.5, random_state=3)
 
         # Folds are stratified; therefore have the same ratio as original dataset.

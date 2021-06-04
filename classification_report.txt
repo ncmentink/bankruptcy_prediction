@@ -1,3 +1,5 @@
+# These are 50 simulations in order to determine the variance.
+
 C = 0.07, model =  l1 
 ROC_AUC score: 0.8346915510614556 
               precision    recall  f1-score   support

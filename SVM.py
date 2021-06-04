@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.feature_selection import RFECV, SelectKBest, f_classif, VarianceThreshold
 from sklearn.model_selection import train_test_split, StratifiedKFold, RepeatedStratifiedKFold, cross_val_score, GridSearchCV, RandomizedSearchCV, KFold
 
-from data_prep import X, y, y_smote_sc, X_smote_sc, y_smote, X_smote
+from data_prep import X, y
 
 
 # Create the correct dataset for this logistic regression
@@ -50,6 +50,7 @@ print("Initial accuracy : {} ".format(initial_score))
 fe_score = cross_val_score(lr, X_new, y, cv=StratifiedKFold(2), scoring='accuracy').mean()
 print("Accuracy after Feature Selection : {} ".format(fe_score))
 
+"""
 # WAY NR 2 OF CHECKING IMPORTANCE
 # get importance
 importance = lr.coef_[0]
@@ -59,7 +60,7 @@ for i,v in enumerate(importance):
 # plot feature importance
 plt.bar([x for x in range(len(importance))], importance)
 plt.show()
-
+"""
 
 
 # PERFORM SVC WITH FEATURES BASED ON STRATIFIED K FOLD CROSS VALIDATION FOR LOGISTIC REGRESSION
@@ -68,7 +69,7 @@ plt.show()
 X_train, X_test, y_train, y_test = train_test_split(X_new, y, test_size=0.25, random_state=0)
 
 
-svc = SVC(C=1, kernel='linear', gamma=0.001, probability=True)
+svc = SVC(C=1, kernel='linear', gamma=0.001, probability=True, n_jobs=-1)
 svc.fit(X_train, y_train)
 y_pred = svc.predict(X_test)
 

@@ -68,7 +68,6 @@ for c in C:
         # Over sample to a 1:10 ratio
         over = SMOTE(sampling_strategy=0.1, random_state=3)
 
-<<<<<<< HEAD:Stratified_K_Fold.py
         # Under sample to a 1:2 ratio.
         # alpha = (# in minority class / # in majority class after resampling)
         under = RandomUnderSampler(sampling_strategy=0.5, random_state=3)
@@ -97,7 +96,7 @@ for c in C:
         output_file.write("%s\n" % classification_report(true_labels, predicted_labels))
 
 output_file.close()
-=======
+
 print(np.mean(recall0))
 print(np.var(recall0))
->>>>>>> 236758d8cfef8d6bf7f6bc830a45b438405d5c3a:Stratified_K_Fold_simulation.py
+

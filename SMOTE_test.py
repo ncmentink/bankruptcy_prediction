@@ -24,17 +24,10 @@ model = LogisticRegression(penalty="l1", solver='saga', max_iter=8000)
 # Pick performance measure to compare models on
 # ROC AUC is best to compare different datasets??
 # measure = "precision"
-measure = "accuracy"
+# measure = "accuracy"
 # measure = "recall"
-# measure = "roc_auc"
+measure = "roc_auc"
 
-
-# The folds of the cross-validation split are stratified, which means they will have the same class distribution as the
-# original dataset, in this case a 1:32 ratio (3% 1-class, 97 0-class) and later a 1:2 ratio (33% 1-class, 66% 0-class).
-
-# We scale the data, as this is necessary for Ridge and Lasso.
-# For the Lasso, the regularization penalty is comprised of the sum of the absolute value of the coefficients,
-# therefore we need to scale the data so the coefficients are all based on the same scale.
 
 # 1: decision tree evaluated on imbalanced dataset
 # evaluate pipeline

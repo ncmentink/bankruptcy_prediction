@@ -32,5 +32,3 @@ ax2.plot(X_plot[10:25], y_plot_L1[10:25], marker='o',label='Lasso')
 ax2.plot(X_plot[10:25], y_plot_L2[10:25], color='olive', marker='o',label='Ridge')
 
 plt.show()
-
-

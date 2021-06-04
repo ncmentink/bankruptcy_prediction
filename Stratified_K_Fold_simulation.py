@@ -99,4 +99,3 @@ output_file.close()
 
 print(np.mean(recall0))
 print(np.var(recall0))
-

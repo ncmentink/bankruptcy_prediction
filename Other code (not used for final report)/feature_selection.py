@@ -1,9 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_selection import RFECV
 from sklearn.model_selection import train_test_split, StratifiedKFold, cross_val_score

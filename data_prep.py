@@ -30,28 +30,17 @@ sns.countplot(x=data['Bankrupt?'])
 plt.show()
 
 
-# Data transformation
-# 1) Resample by means of SMOTE since only 3% of 1-class
-# 2) Scale the data
+# Create boxplots
+#Plotting Boxplots of the numerical features, first plot is of first 48 features
+plt.figure(figsize = (20,20))
+ax =sns.boxplot(data = data.iloc[:,:48], orient="h")
+ax.set_title('Boxplot bank data (first 47 features)', fontsize = 18)
+ax.set(xscale="log")
+plt.show()
 
-# 1) Resample by means of SMOTE, to 50/50
-X = data.drop('Bankrupt?', axis=1)
-y = data['Bankrupt?']
-X_smote, y_smote = SMOTE().fit_resample(X, y)
-
-# 2) Create scaled data
-# Makes a large difference in performance
-data = y_smote.to_frame().join(X_smote)
-count = 0
-not_scaled = []
-for col in data.columns:
-    if max(data[col]) > 1:
-        # print("Unscaled : ", col)
-        count += 1
-        not_scaled.append(col)
-
-scaling_function = MinMaxScaler()
-data[not_scaled] = scaling_function.fit_transform(data[not_scaled])
-
-X_smote_sc = data.drop('Bankrupt?', axis=1)
-y_smote_sc = data['Bankrupt?']
+# Second plot is of last 48 features
+plt.figure(figsize = (20,20))
+ax =sns.boxplot(data = data.iloc[:,48:], orient="h")
+ax.set_title('Boxplot bank data (last 48 features)', fontsize = 18)
+ax.set(xscale="log")
+plt.show()

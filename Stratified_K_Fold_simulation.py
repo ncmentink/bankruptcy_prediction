@@ -53,47 +53,53 @@ C = [0.07]
 
 output_file = open('classification_report.txt', 'w')
 
-for c in C:
-    # Lasso (l1), Ridge (l2); turn one off with # if desired
-    # Increase no. of iterations to ensure convergence
-    Models = [LogisticRegression(penalty="l1", C=c, solver='saga', max_iter=8000),
-              LogisticRegression(penalty="l2", C=c, solver='lbfgs', max_iter=8000)]
 
-    for model in Models:
+recall0 = []
+for i in range(50)
 
-        # Create lists for the average classification report
-        true_labels = []
-        predicted_labels = []
+    for c in C:
+        # Lasso (l1), Ridge (l2); turn one off with # if desired
+        # Increase no. of iterations to ensure convergence
+        Models = [LogisticRegression(penalty="l1", C=c, solver='saga', max_iter=8000),
+                  LogisticRegression(penalty="l2", C=c, solver='lbfgs', max_iter=8000)]
 
-        # Over sample to a 1:10 ratio
-        over = SMOTE(sampling_strategy=0.1, random_state=3)
+        for model in Models:
 
-        # Under sample to a 1:2 ratio.
-        # alpha = (# in minority class / # in majority class after resampling)
-        under = RandomUnderSampler(sampling_strategy=0.5, random_state=3)
+            # Create lists for the average classification report
+            true_labels = []
+            predicted_labels = []
 
-        # Folds are stratified; therefore have the same ratio as original dataset.
-        # Original: 1:32 ratio (3% 1-class, 97% 0-class);
-        # After pipeline 1:2 ratio (33% 1-class, 67% 0-class).
-        steps = [('over', over), ('under', under), ('scale', StandardScaler()),
-                 ('model', model)]
-        pipeline = Pipeline(steps=steps)
+            # Over sample to a 1:10 ratio
+            over = SMOTE(sampling_strategy=0.1, random_state=3)
 
-        # Nested CV with parameter optimization
-        # Pick optimization measure function: accuracy, recall, f1-score, roc_auc
-        cross_val_score(pipeline, X, y, cv=StratifiedKFold(n_splits=10, shuffle=True,
-                                                           random_state=0),
-                        scoring=make_scorer(classification_report_with_recall))
+            # Under sample to a 1:2 ratio.
+            # alpha = (# in minority class / # in majority class after resampling)
+            under = RandomUnderSampler(sampling_strategy=0.5, random_state=3)
 
-        # Get the average classification report of all K estimations
-        print('C:', c)
-        print('model:', model.penalty)
-        print("ROC_AUC score:", roc_auc_score(true_labels, predicted_labels))
-        print(classification_report(true_labels, predicted_labels))
+            # Folds are stratified; therefore have the same ratio as original dataset.
+            # Original: 1:32 ratio (3% 1-class, 97% 0-class);
+            # After pipeline 1:2 ratio (33% 1-class, 67% 0-class).
+            steps = [('over', over), ('under', under), ('scale', StandardScaler()),
+                     ('model', model)]
+            pipeline = Pipeline(steps=steps)
 
-        output_file.write("C = %s, model =  %s \n" % (c, model.penalty))
-        output_file.write("ROC_AUC score: %s \n" % roc_auc_score(true_labels, predicted_labels))
-        output_file.write("%s\n" % classification_report(true_labels, predicted_labels))
+            # Nested CV with parameter optimization
+            # Pick optimization measure function: accuracy, recall, f1-score, roc_auc
+            cross_val_score(pipeline, X, y, cv=StratifiedKFold(n_splits=10, shuffle=True,
+                                                               random_state=0),
+                            scoring=make_scorer(classification_report_with_recall))
+
+            # Get the average classification report of all K estimations
+            print('C:', c)
+            print('model:', model.penalty)
+            print("ROC_AUC score:", roc_auc_score(true_labels, predicted_labels))
+            print(classification_report(true_labels, predicted_labels))
+            
+            recall0.append(classification_report_with_recall(true_labels,predicted_labels))
+
+            output_file.write("C = %s, model =  %s \n" % (c, model.penalty))
+            output_file.write("ROC_AUC score: %s \n" % roc_auc_score(true_labels, predicted_labels))
+            output_file.write("%s\n" % classification_report(true_labels, predicted_labels))
 
 output_file.close()
 
